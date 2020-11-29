@@ -15,7 +15,7 @@ jobs:
       - name: Mark/Close Stale Issues and Pull Requests
         uses: Rylan12/stale@determine-actor-from-token
         with:
-          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          repo-token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
           days-before-stale: 1
           days-before-close: 2
           stale-issue-message: >
