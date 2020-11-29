@@ -1,0 +1,28 @@
+name: "Close stale issues"
+
+on:
+  push:
+    paths:
+    - .github/workflows/stale.yml
+  schedule:
+    # Once every day
+    - cron: "0 0 * * *"
+
+jobs:
+  stale:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Mark/Close Stale Issues and Pull Requests
+        uses: Rylan12/stale@determine-actor-from-token
+        with:
+          repo-token: ${{ github.token }}
+          days-before-stale: 1
+          days-before-close: 2
+          stale-issue-message: >
+            This issue has been automatically marked as stale because it has not had
+            recent activity. It will be closed if no further activity occurs.
+          stale-pr-message: >
+            This pull request has been automatically marked as stale because it has not had
+            recent activity. It will be closed if no further activity occurs.
+          exempt-issue-labels: 'gsoc-outreachy,help wanted,in progress'
+          exempt-pr-labels: 'gsoc-outreachy,help wanted,in progress'
