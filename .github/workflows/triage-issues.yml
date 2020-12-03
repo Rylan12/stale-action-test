@@ -22,7 +22,7 @@ jobs:
       - name: Mark/Close Stale Issues and Pull Requests
         uses: actions/stale@v3
         with:
-          repo-token: ${{ secrets.HOMEBREW_GITHUB_API_TOKEN }}
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
           days-before-stale: 21
           days-before-close: 7
           stale-issue-message: >
@@ -41,7 +41,7 @@ jobs:
       - name: Lock Outdated Threads
         uses: dessant/lock-threads@63786a6c74ee3cfc4584f36de4360305c55e5126
         with:
-          github-token: ${{ secrets.HOMEBREW_GITHUB_API_TOKEN }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
           issue-lock-inactive-days: 30
           issue-lock-labels: outdated
           pr-lock-inactive-days: 30
