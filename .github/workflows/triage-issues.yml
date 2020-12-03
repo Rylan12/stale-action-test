@@ -11,7 +11,7 @@ on:
 
 jobs:
   stale:
-    if: startsWith(github.repository, 'Homebrew/') && (
+    if: startsWith(github.repository, 'Rylan12/') && (
           github.event_name != 'issue_comment' || (
             contains(github.event.issue.labels.*.name, 'stale') ||
             contains(github.event.pull_request.labels.*.name, 'stale')
@@ -35,7 +35,7 @@ jobs:
           exempt-pr-labels: 'gsoc-outreachy,help wanted,in progress'
 
   lock-threads:
-    if: startsWith(github.repository, 'Homebrew/') && github.event_name != 'issue_comment'
+    if: startsWith(github.repository, 'Rylan12/') && github.event_name != 'issue_comment'
     runs-on: ubuntu-latest
     steps:
       - name: Lock Outdated Threads
