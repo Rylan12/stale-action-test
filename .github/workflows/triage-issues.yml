@@ -10,18 +10,19 @@ on:
   issue_comment:
 
 jobs:
-  triage-issues:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Mark/Close Stale Issues and Pull Requests
-        if: >
+  stale:
+    if: startsWith(github.repository, 'Homebrew/') && (
           github.event_name != 'issue_comment' || (
             contains(github.event.issue.labels.*.name, 'stale') ||
             contains(github.event.pull_request.labels.*.name, 'stale')
           )
+        )
+    runs-on: ubuntu-latest
+    steps:
+      - name: Mark/Close Stale Issues and Pull Requests
         uses: actions/stale@v3
         with:
-          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          repo-token: ${{ secrets.HOMEBREW_GITHUB_API_TOKEN }}
           days-before-stale: 21
           days-before-close: 7
           stale-issue-message: >
@@ -33,11 +34,14 @@ jobs:
           exempt-issue-labels: 'gsoc-outreachy,help wanted,in progress'
           exempt-pr-labels: 'gsoc-outreachy,help wanted,in progress'
 
+  lock-threads:
+    if: startsWith(github.repository, 'Homebrew/') && github.event_name != 'issue_comment'
+    runs-on: ubuntu-latest
+    steps:
       - name: Lock Outdated Threads
-        if: ${{ github.event_name != 'issue_comment' }}
         uses: dessant/lock-threads@63786a6c74ee3cfc4584f36de4360305c55e5126
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+          github-token: ${{ secrets.HOMEBREW_GITHUB_API_TOKEN }}
           issue-lock-inactive-days: 30
           issue-lock-labels: outdated
           pr-lock-inactive-days: 30
